@@ -1,0 +1,20 @@
+Question:
+num = 1928; 
+// output : 20
+Getting output 20 from above given number.
+
+
+Solution: 
+<?php
+
+$num = 1928;
+$digits = str_split($num); // Split number into individual digits
+$sum = 0;
+
+foreach ($digits as $digit) {
+    $sum += $digit;
+}
+
+echo "Output: " . $sum . "\n";
+
+?>
