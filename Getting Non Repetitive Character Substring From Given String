@@ -1,0 +1,98 @@
+Question: 
+Input: s = "pwwkew"
+Output: 3
+Explanation: The answer is "wke", with the length of 3.
+Notice that the answer must be a substring, "pwke" is a subsequence and not a substring.
+
+Solution: 
+Approach 1 : Character-by-Character Check with Reset 
+
+<?php
+$s = "pwwkew";
+
+$splitstr = str_split($s);
+$substr = $finalsubstr = "";
+
+for ($i = 0; $i < count($splitstr); $i++) {
+    if (strpos($substr, $splitstr[$i]) === false) {
+        $substr .= $splitstr[$i]; // Add character if not already in substring
+
+        if (strlen($substr) == 3) {
+            $finalsubstr = $substr; // Capture the first valid substring of length 3
+            break; // Stop after finding the first valid 3-char non-repetitive substring
+        }
+    } else {
+        // If character repeats, reset substring starting from this character
+        $substr = $splitstr[$i];
+    }
+}
+
+echo "Substring is: " . $finalsubstr . "\n";
+?>
+
+
+Approach 2 : Sliding Window Approach (Optimal)
+
+<?php
+function longestNonRepeatingSubstring($s) {
+    $n = strlen($s);
+    $longest = "";
+    $current = "";
+    $seen = [];
+
+    $left = 0;
+
+    for ($right = 0; $right < $n; $right++) {
+        $char = $s[$right];
+
+        // If character already seen, move `left` to exclude previous occurrence
+        if (isset($seen[$char]) && $seen[$char] >= $left) {
+            $left = $seen[$char] + 1;
+        }
+
+        // Update the last seen index of the current character
+        $seen[$char] = $right;
+
+        // Current substring is from $left to $right
+        $currentLength = $right - $left + 1;
+        if ($currentLength > strlen($longest)) {
+            $longest = substr($s, $left, $currentLength);
+        }
+    }
+
+    return $longest;
+}
+
+// Example usage
+$s = "pwwkew";
+$longestSubstring = longestNonRepeatingSubstring($s);
+echo "Longest non-repetitive substring: " . $longestSubstring . "\n";
+
+
+==== comparison both approaches ====
+
+Approach 1 : Character-by-Character Check with Reset: 
+Summary
+You build a substring character-by-character.
+Each time you find a duplicate, you discard the whole substring and start over.
+You store a substring of length exactly 3 if you find it.
+Approach 1 logic doesn’t really aim for the "longest substring without repeating characters" — it just collects 3-length substrings with no repeats.
+Time Complexity
+Worst case: O(n²) — if you constantly find duplicates and restart the search, you scan overlapping parts of the string repeatedly.
+Example: In aaaaaa, you keep resetting after every character.
+Space Complexity
+O(n) for the substring storage (in the worst case, you could store the whole string).
+
+
+Approach 2 : Sliding Window Approach (Optimal) :
+Summary
+Uses two pointers (left and right) to define a "window."
+Tracks the last seen index of each character.
+Moves the left pointer forward only when necessary (when duplicates appear).
+Always keeps the substring valid (no duplicates).
+Time Complexity
+O(n) — Each character is processed at most twice (once when adding, once when removing/moving left pointer past it).
+Much faster for larger strings.
+Space Complexity
+O(min(n, a)) where a is the size of the character set (in ASCII, at most 256).
+Typically O(n) for practical cases.
