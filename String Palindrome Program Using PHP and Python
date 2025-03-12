@@ -1,0 +1,76 @@
+<?php
+$str = "madam1";
+$strarr = str_split($str);
+
+
+$palrevstr = "";
+for ($i = count($strarr) - 1; $i >= 0; $i--){
+    $palrevstr .= $strarr[$i];
+}
+
+if ($str == $palrevstr){
+    echo $str." is Palindrome";
+} else {
+    echo $str." is not Palindrome";
+}
+?>
+
+
+Different Method Using Python :-
+
+1. Using String Slicing :-
+
+def is_palindrome(s):
+    return s == s[::-1]  # Reverse the string and compare
+
+# Example Usage
+word = "madam"
+print(f"{word} is a palindrome: {is_palindrome(word)}")
+
+
+2. Using a Loop:-
+
+def is_palindrome(s):
+    s = s.lower()  # Convert to lowercase for case insensitivity
+    length = len(s)
+    
+    for i in range(length // 2):
+        if s[i] != s[length - i - 1]:  # Compare characters from start & end
+            return False
+    return True
+
+# Example Usage
+print(is_palindrome("Racecar"))  # True
+print(is_palindrome("Hello"))    # False
+
+
+3. Using reversed() :-
+
+def is_palindrome(s):
+    return list(s) == list(reversed(s))
+
+print(is_palindrome("121"))  # True
+print(is_palindrome("python"))  # False
+
+
+4. Checking for a Number Palindrome:-
+
+def is_palindrome_number(n):
+    return str(n) == str(n)[::-1]
+
+print(is_palindrome_number(121))  # True
+print(is_palindrome_number(123))  # False
+
+
+5. Ignoring Spaces & Special Characters :-
+
+import re
+
+def is_palindrome(s):
+    s = re.sub(r'[^a-zA-Z0-9]', '', s.lower())  # Remove non-alphanumeric characters
+    return s == s[::-1]
+
+print(is_palindrome("A man, a plan, a canal: Panama"))  # True
+print(is_palindrome("No lemon, no melon"))  # True
+
+
