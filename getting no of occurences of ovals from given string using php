@@ -1,0 +1,25 @@
+$str = 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bono';
+
+getting no of occurences of ovals from given string using php
+
+To count the number of occurrences of vowels (a, e, i, o, u) in the given string using PHP, you can use preg_match_all() or substr_count(). Here's a simple way to do it:
+
+
+<?php
+$str = 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bono';
+
+$vowelCount = preg_match_all('/[aeiouAEIOU]/', $str);
+echo "Total number of vowels: " . $vowelCount;
+?>
+
+
+Solution using array_sum() and substr_count():
+
+<?php
+$str = 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bono';
+
+$vowels = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'];
+$vowelCount = array_sum(array_map(fn($v) => substr_count($str, $v), $vowels));
+
+echo "Total number of vowels: " . $vowelCount;
+?>
