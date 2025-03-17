@@ -1,0 +1,34 @@
+3
+6 6
+9 9 9
+12 12 12 12
+15 15 15 15 15
+
+how can print like this pattern using php
+
+
+achieve this pattern using a 2 for loop in PHP. Here’s the code:
+
+<?php
+$rows = 5; // Number of rows
+$num = 3;  // Starting number
+
+for ($i = 1; $i <= $rows; $i++) {
+    for ($j = 1; $j <= $i; $j++) {
+        echo $num . " ";
+    }
+    echo "<br>"; // New line for next row
+    $num += 3;   // Increase number by 3 for next row
+}
+?>
+
+achieve the same pattern using just one loop in PHP by using str_repeat(), which repeats a string a specified number of times. Here's how you can do it:
+
+<?php
+$num = 3; // Starting number
+
+for ($i = 1; $i <= 5; $i++) {
+    echo str_repeat($num . " ", $i) . "<br>"; // Repeat the number $i times
+    $num += 3; // Increase number by 3 for next row
+}
+?>
